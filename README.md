@@ -100,10 +100,28 @@ The project includes an interactive Power BI dashboard with KPI cards and visual
 
 ```bash
 .
+customer-shopping-behavior-analysis/
+├── README.md
+├── LICENSE
 ├── customer_shopping_python.ipynb
 ├── customer_shopping_sql_queries.sql
-├── Customer-Shopping-Behavior-Analysis-1.pdf
-└── README.md
+├── customer_behavior_dashboard.pbix
+├── data/
+│   └── customer_shopping_behavior.csv  
+├── presentation/
+│   └── Customer_Shopping_Behavior_Analysis_Presentation.pdf
+└── screenshots/
+    ├── sql_01_revenue_by_gender.png
+    ├── sql_02_high_spending_discount_users.png
+    ├── sql_03_top_5_products_by_rating.png
+    ├── sql_04_shipping_type_comparison.png
+    ├── sql_05_subscribers_vs_nonsubscribers.png
+    ├── sql_06_discount_dependent_products.png
+    ├── sql_07_customer_segmentation.png
+    ├── sql_08_top_3_products_per_category.png
+    ├── sql_09_repeat_buyers_subscriptions.png
+    ├── sql_10_revenue_by_age_group.png
+    └── power_bi_dashboard.png
 ```
 
 ## How to Run
