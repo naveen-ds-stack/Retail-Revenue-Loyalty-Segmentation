@@ -1,115 +1,107 @@
-# Customer Shopping Behavior Analysis
+# Retail Revenue & Loyalty Segmentation
 
-Customer Shopping Behavior Analysis is an end-to-end data analytics project that combines Python, SQL, PostgreSQL, and Power BI to study purchase patterns, customer segments, product performance, and subscription behavior using 3,900 transaction records. The project moves from data cleaning and feature engineering to database analysis and dashboard storytelling for business decision-making.
+Clothing drives $104K of revenue (45%+ of total) while 3,116 loyal customers represent the highest-value retention target. This project analyzes 3,900 retail transactions across Python, PostgreSQL, and Power BI to uncover spending patterns, segment customers by loyalty, and surface actionable pricing and retention recommendations.
 
-## Project Overview
+---
 
-This project analyzes customer shopping behavior across multiple product categories to uncover insights about spending patterns, loyalty, ratings, shipping preferences, and customer demographics. The goal is to support strategic business decisions using transactional and behavioral data.
+## Business Problem
 
-## Tech Stack
+A retail business needs to understand where its revenue is concentrated, which customers are worth retaining, and whether its discount strategy is helping or eroding margins. This project answers those questions by building a full analytics pipeline from raw transaction data to an interactive executive dashboard.
 
-- Python and pandas for data loading, cleaning, transformation, and exploratory analysis.
-- SQL for business query analysis.
-- PostgreSQL for storing the cleaned data and running analysis queries.
-- Power BI for interactive dashboard creation and presentation of insights.
-- Jupyter Notebook for the Python workflow.
+---
 
-## Dataset Summary
+## Key Findings
 
-- Rows: 3,900
-- Columns: 18
-- Key features:
-  - Customer demographics: Age, Gender, Location, Subscription Status
-  - Purchase details: Item Purchased, Category, Purchase Amount, Season, Size, Color
-  - Shopping behavior: Discount Applied, Promo Code Used, Previous Purchases, Frequency of Purchases, Review Rating, Shipping Type
-- Missing data: 37 values in the Review Rating column before cleaning.
+| Finding | Detail |
+|---|---|
+| Top revenue category | Clothing — $104,264 (45%+ of total) |
+| Loyal customers | 3,116 out of 3,900 (79.9%) |
+| Male vs female revenue gap | Male customers generate 2.1x more total revenue ($157K vs $75K) — gap is volume-driven, not behavioural |
+| Outerwear pattern | Lowest order volume but highest average spend per transaction — premium upsell opportunity |
+| Subscribers vs non-subscribers | Subscribers show higher average spend and total revenue contribution |
+| Missing data resolved | 37 Review Rating nulls imputed using category-level median to preserve data integrity |
 
-## Key Columns
+**Critical insight:** The male/female revenue gap is driven entirely by transaction volume, not average spend per customer. Both genders spend similarly per order. This means the retention strategy should focus on increasing purchase frequency for female customers rather than increasing their spend per visit.
 
-- Customer ID
-- Age
-- Gender
-- Item Purchased
-- Category
-- Purchase Amount
-- Location
-- Size
-- Color
-- Season
-- Review Rating
-- Subscription Status
-- Shipping Type
-- Discount Applied
-- Promo Code Used
-- Previous Purchases
-- Payment Method
-- Frequency of Purchases
-
-## Workflow
-
-### 1. Data Cleaning in Python
-The notebook loads the shopping dataset into pandas, explores the structure with `head()`, `info()`, and `describe()`, and checks for missing values. Missing values in `Review Rating` are filled using the median rating within each product category, and column names are standardized for better usability.
-
-### 2. Feature Engineering
-The project creates an `age_group` column by binning customer ages into groups such as Young Adult, Adult, Middle-aged, and Senior. It also builds a `purchase_frequency_days` column by mapping textual purchase frequency values into numeric day intervals.
-
-### 3. Database Integration
-The cleaned DataFrame is loaded into PostgreSQL for SQL-based analysis. This database layer supports business queries focused on revenue, loyalty, discounts, and subscriptions.
-
-### 4. SQL Business Analysis
-The SQL script answers several practical business questions, including:
-- Revenue by gender
-- High-spending discount users
-- Top 5 products by rating
-- Average purchase amount by shipping type
-- Subscribers vs. non-subscribers
-- Products with the highest discount purchase rates
-- Customer segmentation into New, Returning, and Loyal groups
-- Top 3 products in each category
-- Repeat buyers and subscription behavior
-- Revenue contribution by age group
-
-### 5. Power BI Dashboard
-The project includes an interactive Power BI dashboard with KPI cards and visual summaries for:
-- Number of customers
-- Average purchase amount
-- Average review rating
-- Subscription split
-- Revenue by category
-- Sales by category
-- Revenue by age group
-- Sales by age group
-
-## Key Insights
-
-- Clothing leads both revenue and sales volume among the categories shown in the dashboard.
-- The dataset shows a strong concentration of loyal customers.
-- Subscribers and non-subscribers can be compared to understand revenue contribution and behavior differences.
-- Age group analysis helps identify the most valuable customer segment.
-- Discount usage varies across product types, which can inform pricing strategy.
+---
 
 ## Business Recommendations
 
-- Promote subscriber-exclusive benefits to improve subscription growth.
-- Create loyalty programs to move repeat buyers into the loyal segment.
-- Review discount policy to balance sales growth with margin control.
-- Highlight top-rated and best-selling products in campaigns.
-- Target high-revenue age groups and express-shipping users more effectively.
+- **Loyalty program priority:** Target the 3,116 loyal customers with exclusive benefits before acquiring new ones — retention is cheaper than acquisition
+- **Outerwear pricing:** Low volume but high average spend signals a premium segment willing to pay more — test price increases or bundling
+- **Discount audit:** Discount usage varies significantly by product. Products with high discount dependency but average revenue are eroding margin without volume payoff
+- **Subscription growth:** Subscribers outperform non-subscribers on both spend and frequency — subscriber conversion should be a primary CRM goal
+- **Female customer frequency:** Close the revenue gap by increasing purchase occasions for female customers, not by changing price points
+
+---
+
+## Analytical Workflow
+
+**Step 1 — Data Cleaning (Python)**
+- Loaded 3,900-row dataset into pandas
+- Standardised column names for database compatibility
+- Resolved 37 missing Review Rating values using category-level median imputation (preserves segment-specific rating patterns better than global median)
+
+**Step 2 — Feature Engineering (Python)**
+- `age_group`: Young Adult, Adult, Middle-aged, Senior (binned from continuous age)
+- `purchase_frequency_days`: Numeric interval mapped from textual frequency labels (enables quantitative analysis of purchase cadence)
+
+**Step 3 — Database Integration (PostgreSQL)**
+- Cleaned DataFrame loaded into PostgreSQL
+- Supports reproducible SQL-based business analysis independent of Python environment
+
+**Step 4 — SQL Business Analysis (10 queries)**
+
+| # | Business Question |
+|---|---|
+| Q1 | Total revenue by gender |
+| Q2 | Discount users who still spend above average |
+| Q3 | Top 5 products by average review rating |
+| Q4 | Average purchase amount: Standard vs Express shipping |
+| Q5 | Subscriber vs non-subscriber spend and revenue comparison |
+| Q6 | Top 5 products with highest discount purchase rates |
+| Q7 | Customer segmentation: New, Returning, Loyal (SQL CTE) |
+| Q8 | Top 3 products within each category (window function) |
+| Q9 | Repeat buyers and subscription behaviour correlation |
+| Q10 | Revenue contribution by age group |
+
+**Step 5 — Power BI Dashboard**
+- KPI cards: total customers, average purchase amount, average review rating, subscription split
+- Revenue and sales by category
+- Revenue and sales by age group
+- Slicers: subscription status, gender, category, shipping type
+
+---
+
+## Tech Stack
+
+- Python, pandas for data cleaning and feature engineering
+- PostgreSQL for relational storage and SQL analysis
+- SQL for 10 business queries (aggregations, CTEs, window functions)
+- Power BI for interactive executive dashboard
+- Jupyter Notebook for Python workflow
+
+---
+
+## Dataset
+
+- 3,900 rows, 18 columns
+- Customer demographics: Age, Gender, Location, Subscription Status
+- Purchase details: Item, Category, Amount, Season, Size, Color
+- Behaviour: Discount Applied, Promo Code, Previous Purchases, Frequency, Review Rating, Shipping Type
+
+---
 
 ## Repository Structure
 
-```bash
-.
-customer-shopping-behavior-analysis/
+```
+retail-revenue-loyalty-segmentation/
 ├── README.md
-├── LICENSE
-├── customer_shopping_python.ipynb
-├── customer_shopping_sql_queries.sql
-├── customer_behavior_dashboard.pbix
+├── customer_shopping_behavior_analysis.ipynb
+├── customer_shopping_behavior_sql_queries.sql
+├── customer_shopping_behavior_dashboard.pbix
 ├── data/
-│   └── customer_shopping_behavior.csv  
-├── presentation/
-│   └── Customer_Shopping_Behavior_Analysis_Presentation.pdf
+│   └── customer_shopping_behavior.csv
 └── screenshots/
     ├── sql_01_revenue_by_gender.png
     ├── sql_02_high_spending_discount_users.png
@@ -124,27 +116,20 @@ customer-shopping-behavior-analysis/
     └── power_bi_dashboard.png
 ```
 
+---
+
 ## How to Run
 
-### Python Analysis
-1. Open `customer_shopping_python.ipynb` in Jupyter Notebook or VS Code.
-2. Update the dataset file path if needed, because the notebook currently references a local CSV path.
-3. Run the notebook cells in sequence to reproduce preprocessing and feature engineering steps.
+**Python Analysis**
+1. Open `customer_shopping_behavior_analysis.ipynb` in Jupyter Notebook or VS Code
+2. Update the CSV file path to your local data directory
+3. Run all cells in sequence to reproduce cleaning and feature engineering
 
-### SQL Analysis
-1. Create the target database and customer table structure in PostgreSQL or a compatible SQL environment.
-2. Load the cleaned dataset into the database.
-3. Run the queries from `customer_shopping_sql_queries.sql` to reproduce the business analysis.
+**SQL Analysis**
+1. Create the database and customer table in PostgreSQL
+2. Load the cleaned dataset exported from the Python notebook
+3. Run queries from `customer_shopping_behavior_sql_queries.sql`
 
-### Power BI Dashboard
-1. Import the cleaned dataset or connect Power BI to the PostgreSQL database used in the project.
-2. Recreate visuals for KPIs, category-level revenue, sales patterns, subscription split, and age-group performance.
-3. Add slicers for subscription status, gender, category, and shipping type to make the dashboard interactive.
-
-## Resume-Ready Summary
-
-This project demonstrates a complete analytics workflow: cleaning customer purchase data in Python, transforming and loading it into PostgreSQL, answering business questions with SQL, and building a Power BI dashboard for executive-friendly reporting.
-
-## License
-
-This project is intended for portfolio and educational use.
+**Power BI Dashboard**
+1. Open `customer_shopping_behavior_dashboard.pbix` in Power BI Desktop
+2. Connect to your PostgreSQL database or import the cleaned CSV directly
