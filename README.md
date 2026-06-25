@@ -21,6 +21,8 @@ A retail business needs to understand where its revenue is concentrated, which c
 | Subscribers vs non-subscribers | Subscribers show higher average spend and total revenue contribution |
 | Missing data resolved | 37 Review Rating nulls imputed using category-level median to preserve data integrity |
 
+> **Note:** Revenue figures are in USD as labeled in the dataset.
+
 **Critical insight:** The male/female revenue gap is driven entirely by transaction volume, not average spend per customer. Both genders spend similarly per order. This means the retention strategy should focus on increasing purchase frequency for female customers rather than increasing their spend per visit.
 
 ---
@@ -133,3 +135,12 @@ retail-revenue-loyalty-segmentation/
 **Power BI Dashboard**
 1. Open `customer_shopping_behavior_dashboard.pbix` in Power BI Desktop
 2. Connect to your PostgreSQL database or import the cleaned CSV directly
+
+---
+
+## Business Context
+
+This analysis is designed to support retail category managers 
+and CRM teams in prioritising retention spend and pricing 
+decisions based on actual revenue concentration and customer 
+behaviour patterns.
