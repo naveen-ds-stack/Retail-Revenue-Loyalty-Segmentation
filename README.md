@@ -48,8 +48,8 @@ A retail business needs to understand where its revenue is concentrated, which c
 - `age_group`: Young Adult, Adult, Middle-aged, Senior (binned from continuous age)
 - `purchase_frequency_days`: Numeric interval mapped from textual frequency labels (enables quantitative analysis of purchase cadence)
 
-**Step 3 — Database Integration (PostgreSQL)**
-- Cleaned DataFrame loaded into PostgreSQL
+**Step 3 — Database Integration (MySQL)**
+- Cleaned DataFrame loaded into MySQL
 - Supports reproducible SQL-based business analysis independent of Python environment
 
 **Step 4 — SQL Business Analysis (10 queries)**
@@ -78,7 +78,7 @@ A retail business needs to understand where its revenue is concentrated, which c
 ## Tech Stack
 
 - Python, pandas for data cleaning and feature engineering
-- PostgreSQL for relational storage and SQL analysis
+- MySQL for relational storage and SQL analysis
 - SQL for 10 business queries (aggregations, CTEs, window functions)
 - Power BI for interactive executive dashboard
 - Jupyter Notebook for Python workflow
@@ -128,7 +128,7 @@ retail-revenue-loyalty-segmentation/
 3. Run all cells in sequence to reproduce cleaning and feature engineering
 
 **SQL Analysis**
-1. Create the database and customer table in PostgreSQL
+1. Create the database and customer table in MySQL
 2. Load the cleaned dataset exported from the Python notebook
 3. Run queries from `customer_shopping_behavior_sql_queries.sql`
 
